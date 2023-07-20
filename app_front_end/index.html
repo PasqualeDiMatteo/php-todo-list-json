@@ -28,10 +28,13 @@
                     <li class="list-group-item" v-for="task in tasks">{{task}}</li>
                 </ul>
             </div>
-            <div class="input-group mt-5">
-                <input type="text" class="form-control" placeholder="Inserisci un elemento...">
-                <button class="btn btn-outline-secondary" type="button" id="add-task">Inserisci</button>
-            </div>
+            <form @submit.prevent="addedTask">
+                <div class="input-group mt-5">
+                    <input type="text" class="form-control" placeholder="Inserisci un elemento..."
+                        v-model.trim="newTask" aria-describedby="add-task">
+                    <button class="btn btn-outline-secondary" id="add-task">Inserisci</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

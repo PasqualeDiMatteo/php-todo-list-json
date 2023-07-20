@@ -15,7 +15,13 @@ const app = createApp({
   data() {
     return {
       tasks: [],
+      newTask: "",
     };
+  },
+  methods: {
+    addedTask() {
+      console.log(this.newTask);
+    },
   },
   created() {
     axios
