@@ -14,8 +14,15 @@ const { createApp } = Vue;
 const app = createApp({
   data() {
     return {
-      tasks: ["HTML", "CSS", "Responsive design", "Javascript", "PHP"],
+      tasks: [],
     };
+  },
+  created() {
+    axios
+      .get("http://localhost/php-todo-list-json/app_back_end/api")
+      .then((res) => {
+        this.tasks = res.data;
+      });
   },
 });
 
