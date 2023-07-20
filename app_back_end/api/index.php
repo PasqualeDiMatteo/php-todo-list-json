@@ -7,8 +7,17 @@ $tasks = json_decode($json_data, true);
 
 $newTask = $_POST["task"] ?? null;
 
+
 if ($newTask) {
-    $tasks[] = $newTask;
+    $last_task = end($tasks);
+    $last_id = $last_task["id"];
+    $next_id = ++$last_id;
+
+    $tasks[] = [
+        "id" => $next_id,
+        "text" => $newTask,
+        "completed" => false
+    ];
     $json_tasks = json_encode($tasks);
     file_put_contents($database_path, $json_tasks);
 }
@@ -24,6 +33,20 @@ if ($current_task_id) {
     $json_task = json_encode($tasks);
     file_put_contents($database_path, $json_task);
 }
+
+$deleted_id = $_POST['idDelate'] ?? NULL;
+
+
+if ($deleted_id) {
+    foreach ($tasks as $i => $task) {
+        if ($deleted_id == $task['id']) {
+            unset($tasks[$i]);
+        }
+    }
+    $json_task = json_encode($tasks);
+    file_put_contents($database_path, $json_task);
+}
+
 
 header('Content-Type: application/json');
 echo json_encode($tasks);

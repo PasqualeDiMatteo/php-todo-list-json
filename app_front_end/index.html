@@ -25,13 +25,16 @@
             <h1 class="text-center">Todo List</h1>
             <div class="card mt-5">
                 <ul class=" list-group list-group-flush">
-                    <li class="list-group-item" v-for="task in tasks" :key="task.id" @click="setDone(task.id)"
-                        :class="{'text-decoration-line-through': task.completed}">
-                        {{task.text}}
+                    <li class="list-group-item d-flex justify-content-between align-items-center" v-for="task in tasks"
+                        :key="task.id" :class="{'text-decoration-line-through': task.completed}">
+                        <div @click="setCompleted(task.id)">{{task.text}}</div>
+                        <div><button @click="deleteTask(task.id)" type="button" class="btn-close"
+                                aria-label="Close"></button>
+                        </div>
                     </li>
                 </ul>
             </div>
-            <form @submit.prevent="addedTask">
+            <form @submit.prevent=" addedTask">
                 <div class="input-group mt-5">
                     <input type="text" class="form-control" placeholder="Inserisci un elemento..."
                         v-model.trim="newTask" aria-describedby="add-task">

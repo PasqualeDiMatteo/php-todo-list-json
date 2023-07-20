@@ -35,7 +35,7 @@ const app = createApp({
           this.newTask = "";
         });
     },
-    setDone(currentId) {
+    setCompleted(currentId) {
       const data = { id: currentId };
       const config = {
         headers: { "Content-Type": "multipart/form-data" },
@@ -50,6 +50,26 @@ const app = createApp({
           res.data.forEach((task, i) => {
             if (task.id == currentId) {
               this.tasks[i].completed = !this.tasks[i].completed;
+            }
+          });
+        });
+    },
+    deleteTask(currentId) {
+      const data = { idDelate: currentId };
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+      axios
+        .post(
+          "http://localhost/php-todo-list-json/app_back_end/api/",
+          data,
+          config
+        )
+        .then((res) => {
+          this.tasks = res.data;
+          this.tasks.forEach((task, index) => {
+            if (task.id == currentId) {
+              this.task = this.tasks.splice(index, 1);
             }
           });
         });
