@@ -25,7 +25,10 @@
             <h1 class="text-center">Todo List</h1>
             <div class="card mt-5">
                 <ul class=" list-group list-group-flush">
-                    <li class="list-group-item" v-for="task in tasks" :key="task">{{task}}</li>
+                    <li class="list-group-item" v-for="task in tasks" :key="task.id" @click="setDone(task.id)"
+                        :class="{'text-decoration-line-through': task.completed}">
+                        {{task.text}}
+                    </li>
                 </ul>
             </div>
             <form @submit.prevent="addedTask">

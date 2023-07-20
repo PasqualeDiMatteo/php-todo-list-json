@@ -35,6 +35,25 @@ const app = createApp({
           this.newTask = "";
         });
     },
+    setDone(currentId) {
+      const data = { id: currentId };
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" },
+      };
+      axios
+        .post(
+          "http://localhost/php-todo-list-json/app_back_end/api/",
+          data,
+          config
+        )
+        .then((res) => {
+          res.data.forEach((task, i) => {
+            if (task.id == currentId) {
+              this.tasks[i].completed = !this.tasks[i].completed;
+            }
+          });
+        });
+    },
   },
   created() {
     axios
